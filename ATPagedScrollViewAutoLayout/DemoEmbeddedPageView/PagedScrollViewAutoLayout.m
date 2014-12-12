@@ -10,7 +10,6 @@
 
 @interface PagedScrollViewAutoLayout()
 
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic) UIView *scrollContentView;
 
 
@@ -35,18 +34,19 @@
     return self;
 }
 
-- (instancetype)init
+- (NSMutableArray *)contentViewContainers
 {
-    if (self = [super init])
+    if (!_contentViewContainers)
     {
-//        [self setupView];
+        _contentViewContainers = [NSMutableArray new];
     }
     
-    return self;
+    return _contentViewContainers;
 }
-- (void)awakeFromNib
+
+- (NSDictionary *)metrics
 {
-//    [self setupView];
+    return @{@"screenWidth" : @([UIScreen mainScreen].bounds.size.width)};
 }
 
 - (void)setupView
@@ -67,21 +67,6 @@
     
     [self updateConstraintsIfNeeded];
 
-}
-
-- (NSMutableArray *)contentViewContainers
-{
-    if (!_contentViewContainers)
-    {
-        _contentViewContainers = [NSMutableArray new];
-    }
-    
-    return _contentViewContainers;
-}
-
-- (NSDictionary *)metrics
-{
-    return @{@"screenWidth" : @([UIScreen mainScreen].bounds.size.width)};
 }
 
 - (void)updateConstraints
